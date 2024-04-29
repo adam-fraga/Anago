@@ -63,19 +63,23 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+Are you tired of spending valuable time setting up your development environment every time you start a new project? Say goodbye to repetitive setup tasks with this Dockerized Development Environment!
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+Introduction
+I use this setupe on my workflow to simplify the process of creating a development environment by packaging all the necessary tools and dependencies into a Docker container. 
+Whether you're working on a small script or a complex application, this Dockerized setup ensures consistency, reproducibility, and ease of use.
+No need for you to install development tool localy.
 
-Here's why:
+Key Features
+Comprehensive Stack: 
 
-- Your time should be focused on creating something amazing. A project that solves a problem and helps others
-- You shouldn't be doing the same tasks over and over like creating a README from scratch
-- You should implement DRY principles to the rest of your life :smile:
+This Dockerized environment includes the following stack:
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+Go, Templ, Tailwind, Postgres, and Typescript providing you with everything you need for modern web development.
 
-Use the `BLANK_README.md` to get started.
+Type Safety with Typescript: Enjoy the benefits of type safety with Typescript, catching errors early and improving the stability of your codebase.
+
+Streamlined Workflow: With just a few simple steps, you can have a fully functional development environment up and running, allowing you to focus on what matters most: building amazing projects.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
