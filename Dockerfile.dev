@@ -29,5 +29,8 @@ RUN cd /usr/src/app && go mod vendor
 RUN cd /usr/src/app && go mod download && go mod verify
 RUN cd /usr/src/app && templ generate
 
+RUN echo "@tailwind base;\n@tailwind components;\n@tailwind utilities;" > /usr/src/app/src/styles/input.css
+RUN echo "console.log('Anago TS Loaded!');" > /usr/src/app/src/scripts/index.ts
+
 COPY . .
 
