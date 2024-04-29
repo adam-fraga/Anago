@@ -1,0 +1,33 @@
+FROM golang:1.22
+
+# CREATE AN IMAGE OF THE DEVELOPMENT ENVIRONMENT FOR THE PROJECT
+
+ENV PROJECT_NAME=test-module
+
+RUN apt update && apt install -y \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+RUN apt install -y nodejs
+
+RUN go install github.com/a-h/templ/cmd/templ@latest
+RUN go install github.com/cosmtrek/air@latest 
+
+COPY ./config /usr/src/app/config
+COPY ./Makefile /usr/src/app
+
+WORKDIR /usr/src/app
+
+RUN make init
+
+
+RUN cd /usr/src/app && go mod init $PROJECT_NAME
+RUN cd /usr/src/app && go get $PROJECT_NAME
+RUN cd /usr/src/app && go mod tidy
+RUN cd /usr/src/app && go mod vendor
+RUN cd /usr/src/app && go mod download && go mod verify
+RUN cd /usr/src/app && templ generate
+
+COPY . .
+

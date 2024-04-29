@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/a-h/templ"
-	"github.com/adam-fraga/hananime/views"
 	"net/http"
+	"test-module/views"
 )
 
 func main() {

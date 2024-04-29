@@ -1,0 +1,27 @@
+FROM golang:1.22
+
+RUN apt update && apt install -y \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+RUN apt install -y nodejs
+RUN go install github.com/a-h/templ/cmd/templ@latest
+#RUN go install github.com/cosmtrek/air@latest AIR NEED TO BE INSTALLED IN THE DEV ENVIRONMENT
+
+COPY ./ /usr/src/app
+
+WORKDIR /usr/src/app
+
+RUN make init
+RUN cd /usr/src/app && go mod init test-module
+RUN cd /usr/src/app && go get test-module
+RUN cd /usr/src/app && go mod tidy
+RUN cd /usr/src/app && go mod vendor
+RUN cd /usr/src/app && go mod download && go mod verify
+RUN cd /usr/src/app && templ generate
+
+COPY . .
+RUN go build -v -o /usr/src/app/cmd ./...
+
+CMD ["/usr/src/app/cmd/test-module"]
