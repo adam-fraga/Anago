@@ -40,27 +40,29 @@ tailwind:
 
 # Run this command to init the structure of the project
 init:
-	@echo "Create project strucutre..."
-	@mkdir -p $(STYLES_SRC_DIR) && touch $(STYLES_SRC_FILE)
-	@mkdir -p $(SCRIPTS_SRC_DIR) && touch $(SCRIPTS_SRC_FILE)
-	@mkdir -p $(STYLES_DIR)
-	@mkdir -p $(SCRIPTS_DIR)
-	@mkdir -p $(IMG_DIR)
-	@mkdir -p $(FONTS_DIR)
-	@mkdir -p $(VIEWS_DIR)
-	@mkdir -p $(HANDLERS_DIR)
-	@mkdir -p $(MODELS_DIR)
-	@mkdir -p $(CMD_DIR)
-	@cp $(CONFIG_DIR)/* .
-	@echo "Project structure created!"
-	@echo "Installing dependencies..."
-	@npm install typescript ts-loader webpack webpack-cli tailwindcss daisyui@latest -D
-	@npm install htmx.org
-	@echo "Dependencies installed!"
+	echo "Create project strucutre..."
+	mkdir -p $(STYLES_SRC_DIR) && touch $(STYLES_SRC_FILE)
+	mkdir -p $(SCRIPTS_SRC_DIR) && touch $(SCRIPTS_SRC_FILE)
+	mkdir -p $(STYLES_DIR)
+	mkdir -p $(SCRIPTS_DIR)
+	mkdir -p $(IMG_DIR)
+	mkdir -p $(FONTS_DIR)
+	mkdir -p $(VIEWS_DIR)
+	mkdir -p $(HANDLERS_DIR)
+	mkdir -p $(MODELS_DIR)
+	mkdir -p $(CMD_DIR)
+	cp $(CONFIG_DIR)/* .
+	echo "Project structure created!"
+	echo "Installing dependencies..."
+	npm install typescript ts-loader webpack webpack-cli tailwindcss daisyui@latest -D
+	npm install htmx.org
+	npm install --save-dev clean-webpack-plugin
+	npm install --save-dev html-webpack-plugin
+	echo "Dependencies installed!"
 
 # Run this command to clean the project
 clean:
-	@echo "Cleaning up..."
-	@rm -rf ./assets/styles/styles.css
-	@rm -rf ./assets/scripts/bundle.js
-	@rm -rf ./node_modules
+	echo "Cleaning up..."
+	rm -rf ./assets/styles/styles.css
+	rm -rf ./assets/scripts/bundle.js
+	rm -rf ./node_modules
