@@ -66,12 +66,12 @@
 Are you tired of spending valuable time setting up your development environment every time you start a new project? Say goodbye to repetitive setup tasks with this Dockerized Development Environment!
 
 Introduction
-I use this setupe on my workflow to simplify the process of creating a development environment by packaging all the necessary tools and dependencies into a Docker container. 
+I use this setupe on my workflow to simplify the process of creating a development environment by packaging all the necessary tools and dependencies into a Docker container.
 Whether you're working on a small script or a complex application, this Dockerized setup ensures consistency, reproducibility, and ease of use.
 No need for you to install development tool localy.
 
 Key Features
-Comprehensive Stack: 
+Comprehensive Stack:
 
 This Dockerized environment includes the following stack:
 
@@ -195,10 +195,9 @@ templ Index(name string) {
 ## Fix list
 
 1. ADD POSTGRES DB SUPPORT TO THE DOCKERFILE
-2. RUN DEV CONTAINER -IT AND FIX Tailwind + FIX WEBPACK BY ADDING PLUGINS WITH NPM
-3. ADD PRODUCTION BUILD STEP TO THE DOCKERFILE.PROD
-4. FINALIZE THE README TO INCLUDE ALL THE STEPS TO RUN THE PROJECT
-5. ADD NVM SUPPORT FOR DOCKER DEV CONTAINER
+2. ADD PRODUCTION BUILD STEP TO THE DOCKERFILE.PROD
+3. FINALIZE THE README TO INCLUDE ALL THE STEPS TO RUN THE PROJECT
+4. ADD NVM SUPPORT FOR DOCKER DEV CONTAINER
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
