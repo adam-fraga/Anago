@@ -13,7 +13,7 @@
 <br />
 <div align="center">
 
-<img src="https://i.ibb.co/4W3Vrc9/image.png" alt="Logo" width="80" height="80" alt="image" border="0">
+<img src="https://i.ibb.co/4W3Vrc9/image.png" alt="Logo" alt="image" border="0">
 
 
   <h3 align="center">Anago</h3>
