@@ -3,26 +3,37 @@ FROM golang:1.22
 # CREATE AN IMAGE OF THE DEVELOPMENT ENVIRONMENT FOR THE PROJECT
 
 ENV PROJECT_NAME=hananime
+ENV NVM_DIR /root/.nvm
+ENV NODE_VERSION 20.12.1
 
+# Install necessary packages
 RUN apt update && apt install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-RUN apt install -y nodejs
-RUN npm install -g npm@latest
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash \
+    && . $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
+
+# Add Node.js and npm to path so the commands are available
+ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 RUN go install github.com/a-h/templ/cmd/templ@latest
 RUN go install github.com/cosmtrek/air@latest 
 
+# Copy necessary files for the Makefile to run
 COPY ./config /usr/src/app/config
 COPY ./Makefile /usr/src/app
 
 WORKDIR /usr/src/app
 
+# Run the make init command to initialize the project
 RUN make init
 
-
+# Init the go module
 RUN cd /usr/src/app && go mod init $PROJECT_NAME
 RUN cd /usr/src/app && go get $PROJECT_NAME
 RUN cd /usr/src/app && go mod tidy
@@ -30,6 +41,7 @@ RUN cd /usr/src/app && go mod vendor
 RUN cd /usr/src/app && go mod download && go mod verify
 RUN cd /usr/src/app && templ generate
 
+# Create the necessary config files
 RUN echo "@tailwind base;\n@tailwind components;\n@tailwind utilities;" > /usr/src/app/src/styles/input.css
 RUN echo "console.log('Anago TS Loaded!');" > /usr/src/app/src/scripts/index.ts
 RUN mkdir /usr/src/app/cmd/$PROJECT_NAME
