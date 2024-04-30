@@ -4,7 +4,6 @@
 
 <img src="https://i.ibb.co/4W3Vrc9/image.png" alt="Logo" alt="image" border="0">
 
-
   <h3 align="center">Anago</h3>
 
   <p align="center">
@@ -48,9 +47,14 @@
 
 ## About The Project
 
-Are you tired of spending valuable time setting up your development environment every time you start a new project? Say goodbye to repetitive setup tasks with this Dockerized Development Environment!
+Are you tired of spending valuable time setting up your development environment every time you start a new project?
+Say goodbye to repetitive setup tasks with this Dockerized Development Environment!
 
-Introduction
+This project contains the scripts that made the image of Anago dev container:
+
+Anago Docker hub container link :
+[Anago](https://docker.io/adamfraga/anago-dev)
+
 I use this setupe on my workflow to simplify the process of creating a development environment by packaging all the necessary tools and dependencies into a Docker container.
 Whether you're working on a small script or a complex application, this Dockerized setup ensures consistency, reproducibility, and ease of use.
 No need for you to install development tool localy.
@@ -58,7 +62,7 @@ No need for you to install development tool localy.
 Key Features
 Comprehensive Stack:
 
-This Dockerized environment includes the following stack:
+This Project provide a Docker image provide a dev container environment includes the following stack:
 
 Go, Templ, Tailwind, Postgres, and Typescript providing you with everything you need for modern web development.
 
@@ -75,21 +79,18 @@ Streamlined Workflow: With just a few simple steps, you can have a fully functio
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-### Developer Prerequisites
-
-You need to have the following tools installed on your machine to be able to run the project.
-
-- [Node.js](https://nodejs.org/en/)
-- [Go](https://golang.org/)
-- [Air](https://github.com/cosmtrek/air)
-- [Make](https://www.gnu.org/software/make/)
-
 ### Developer kick starter
+
+#### Modify the Docker image
+
+You can modify the Dockerfile.dev to add or remove any tools you need for your development environment.
+most of the time you will need to add a new package to the Dockerfile.dev to install it in the container.
+You can also edit the Makefile to add new commands available to the container.
 
 1. Clone the repo
 
    ```sh
-   git clone https://github.com/adam-fraga/hananime.git
+   git clone https://github.com/adam-fraga/anago.git
    ```
 
 2. To start the development environment, you need to have Docker installed on your machine.
@@ -100,12 +101,29 @@ To start the development environment, run the following commands to build the Do
 ```sh
 docker build -t "pseudo/appimagename" -f Dockerfile.dev .
 docker build -f Dockerfile.dev -t pseudo/appimagename:tag .
-docker volume create "volume-name"
-docker run -v volume-name:/usr/src/app pseudo/appimagename -it /bin/bash
 ```
 
-3. Once you are inside the container, you can run the following commands to start the development server,
-   note that we preconize to use a terminal multiplexer like tmux or screen to run the following commands for more convenience:
+Note that You can also publish your own image to Docker Hub by running the following commands:
+
+```sh
+docker login
+docker tag pseudo/appimagename:tag pseudo/appimagename:tag
+docker push pseudo/appimagename:tag
+```
+
+3. Run the container
+
+Now you can create your app folder and launch the container with the following command:
+
+```sh
+mkdir /path/to/your/project
+docker cp /path/to/your/project/. container_id:/usr/src/app
+docker stop container_id
+docker volume create my-vol
+docker run -v my-vol:/usr/src/app -it container_id /bin/bash
+```
+
+4. Start the development environment by running the following commands inside the container or with interactive mode:
 
 ```sh
 make tailwind
@@ -130,7 +148,7 @@ import (
 	"fmt"
 	"github.com/a-h/templ"
 	"net/http"
-	"my-module-name/views"
+	"my-module-name/views" //Here you need to replace my-module-name by the name of your module
 )
 
 func main() {

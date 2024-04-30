@@ -2,7 +2,7 @@ FROM golang:1.22
 
 # CREATE AN IMAGE OF THE DEVELOPMENT ENVIRONMENT FOR THE PROJECT
 
-ENV PROJECT_NAME=test-module
+ENV PROJECT_NAME=hananime
 
 RUN apt update && apt install -y \
     git \
@@ -10,6 +10,7 @@ RUN apt update && apt install -y \
 
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt install -y nodejs
+RUN npm install -g npm@latest
 
 RUN go install github.com/a-h/templ/cmd/templ@latest
 RUN go install github.com/cosmtrek/air@latest 
@@ -31,6 +32,8 @@ RUN cd /usr/src/app && templ generate
 
 RUN echo "@tailwind base;\n@tailwind components;\n@tailwind utilities;" > /usr/src/app/src/styles/input.css
 RUN echo "console.log('Anago TS Loaded!');" > /usr/src/app/src/scripts/index.ts
+RUN mkdir /usr/src/app/cmd/$PROJECT_NAME
+RUN echo "package main\n\nimport (\n\n $PROJECT_NAME \n\n)" > /usr/src/app/cmd/$PROJECT_NAME/main.go
 
 COPY . .
 
