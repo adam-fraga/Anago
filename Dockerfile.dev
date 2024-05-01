@@ -1,8 +1,5 @@
 FROM golang:1.22
 
-# CREATE AN IMAGE OF THE DEVELOPMENT ENVIRONMENT FOR THE PROJECT
-
-ENV PROJECT_NAME=hananime
 ENV NVM_DIR /root/.nvm
 ENV NODE_VERSION 20.12.1
 
@@ -32,20 +29,7 @@ WORKDIR /usr/src/app
 
 # Run the make init command to initialize the project
 RUN make init
-
-# Init the go module
-RUN cd /usr/src/app && go mod init $PROJECT_NAME
-RUN cd /usr/src/app && go get $PROJECT_NAME
-RUN cd /usr/src/app && go mod tidy
-RUN cd /usr/src/app && go mod vendor
-RUN cd /usr/src/app && go mod download && go mod verify
-RUN cd /usr/src/app && templ generate
-
-# Create the necessary config files
-RUN echo "@tailwind base;\n@tailwind components;\n@tailwind utilities;" > /usr/src/app/src/styles/input.css
-RUN echo "console.log('Anago TS Loaded!');" > /usr/src/app/src/scripts/index.ts
-RUN mkdir /usr/src/app/cmd/$PROJECT_NAME
-RUN echo "package main\n\nimport (\n\n $PROJECT_NAME \n\n)" > /usr/src/app/cmd/$PROJECT_NAME/main.go
+RUN mv /usr/src/app/config/init.sh /usr/src/app/init.sh
 
 COPY . .
 
