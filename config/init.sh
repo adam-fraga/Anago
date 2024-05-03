@@ -64,10 +64,11 @@ go mod tidy
 go mod download && go mod verify
 templ generate
 
+mv ./config/.air.toml .
+mv ./config/.env .
+
 rm -rf ./config
 rm Dockerfile.dev
 rm Dockerfile.prod
 
-docker volume create $app_name
-docker volume create --driver local --opt type=none --opt device=$(pwd) --opt o=bind $app_name
-docker run -v $app_name:/usr/src/$app_name --name $app_name -p 8080:3000 adamfraga/anago-dev:1 /bin/bash
+docker run --mount type=bind,source=$(pwd),target=/usr/src/app --name $app_name -p 8080:3000 -p 8081:3001 adamfraga/anago:1.0 air
