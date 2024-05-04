@@ -193,7 +193,6 @@ func main() {
 ```
 
 _/usr/src/app/templ/index.templ_
-
 ```templ
 
 
