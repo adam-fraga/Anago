@@ -4,7 +4,9 @@ repo_name_go="github.com/$github_pseudo/"
 app_name="$(basename "$PWD")"
 firstname="Adam"
 
+
 mkdir -p ./cmd/$app_name
+rm -rf ./.git
 
 echo '
 package main
@@ -46,6 +48,8 @@ templ Index(name string) {
 </html>
 }" > "$PWD/views/index.templ"
 
+# Populate the tailwind and typescript file
+
 echo "@tailwind base;\n@tailwind components;\n@tailwind utilities;" > $PWD/src/styles/input.css
 echo "console.log('Anago TS Loaded!');" > $PWD/src/scripts/index.ts
 
@@ -66,6 +70,9 @@ templ generate
 
 mv ./config/.air.toml .
 mv ./config/.env .
+
+sed -i "7c\ \ bin = \"cmd/$app_name\"" ./.air.toml
+sed -i "8c\ \ cmd = \"go build -o ./cmd/$app_name ./cmd/$app_name\"" ./.air.toml
 
 rm -rf ./config
 rm Dockerfile.dev

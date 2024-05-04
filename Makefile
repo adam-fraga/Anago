@@ -7,7 +7,6 @@ VIEWS_DIR := ./views
 HANDLERS_DIR := ./handlers
 ASSETS_DIR := ./assets
 MODELS_DIR := ./models
-CONFIG_DIR := ./config
 
 # Assets directories
 STYLES_SRC_DIR := $(SRC_DIR)/styles
@@ -42,7 +41,6 @@ init:
 	mkdir -p $(HANDLERS_DIR)
 	mkdir -p $(MODELS_DIR)
 	mkdir -p $(CMD_DIR)
-	cp $(CONFIG_DIR)/* .
 	echo "Project structure created!"
 	echo "Installing dependencies..."
 	npm install typescript ts-loader webpack webpack-cli tailwindcss daisyui@latest -D

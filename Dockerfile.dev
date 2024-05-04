@@ -22,14 +22,13 @@ RUN go install github.com/a-h/templ/cmd/templ@latest
 RUN go install github.com/cosmtrek/air@latest 
 
 # Copy necessary files for the Makefile to run
-COPY ./config /usr/src/app/config
+COPY ./config/** /usr/src/app/
 COPY ./Makefile /usr/src/app
 
 WORKDIR /usr/src/app
 
 # Run the make init command to initialize the project
 RUN make init
-RUN mv /usr/src/app/config/init.sh /usr/src/app/init.sh
 
 COPY . .
 
